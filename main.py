@@ -10,7 +10,7 @@ def json_from_url(url):
     page = requests.get(url, headers=headers)
     soup = BeautifulSoup(page.text, 'html.parser')
     data_json = soup.find(id='initial-data').get('data-json')
-    #print(soup)
+    print(data_json)
     return json.loads(data_json)
 #Teste
 
@@ -27,6 +27,10 @@ def mostra_dados_do_anuncio(url):
     phone =  data['ad']['phone']['phone']
     user = data['ad']['user']['name']
     preco = data['ad']['price']
+    Local = data['ad']['location']['municipality']
+    zone = data['ad']['location']['zone']
+    UF =  data ['ad']['location']['uf']
+    print('Local= ',UF,',',Local,',',zone)
     print('Vendedor=',user)
     print('Telefone=',phone)
     print('Descrição=',descricao)
