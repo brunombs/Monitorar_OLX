@@ -10,15 +10,15 @@ def json_from_url(url):
     page = requests.get(url, headers=headers)
     soup = BeautifulSoup(page.text, 'html.parser')
     data_json = soup.find(id='initial-data').get('data-json')
-    print(data_json)
+    #print(data_json)
     return json.loads(data_json)
 #Teste
 
 # Função que recebe url do anúncio
 # e mostra nome do vendedor, telefone,
 # descrição do produto e preço
-url_produtos='https://rj.olx.com.br/rio-de-janeiro-e-regiao/autos-e-pecas/motos/suzuki/boulevard?pe=30000&ps=10000'
-
+#url_produtos='https://rj.olx.com.br/rio-de-janeiro-e-regiao/autos-e-pecas/motos/suzuki/boulevard?pe=30000&ps=10000'
+url_produtos="https://rj.olx.com.br/rio-de-janeiro-e-regiao?q=ps5"
 # Pega a lista de produtos da área de eletrônicos
 data = json_from_url(url_produtos)
 def mostra_dados_do_anuncio(url):
