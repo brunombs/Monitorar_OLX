@@ -1,4 +1,4 @@
-<img alt="OLX Monitor" src="assets/olx-monitor-banner.png"></img>
+<img alt="OLX Monitor" src="https://github.com/carmolim/olx-monitor/blob/main/assets/olx-monitor-banner.png"></img>
 
 # OLX Monitor
 
