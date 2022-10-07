@@ -74,6 +74,7 @@ O funcionamamento do script é simples. Ele percorre um `array` de `URLs` copiad
 
 ## Créditos do projeto para:
 [Reisvmr](https://github.com/Reisvmr/Busca_OLX) que criou o script da busca na olx!
+
 [Carmolin](https://github.com/carmolim/olx-monitor) que criou esse read.me, usei ele como base para o meu!
 
 
