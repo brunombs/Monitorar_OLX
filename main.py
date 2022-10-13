@@ -56,7 +56,6 @@ while True:
                 print('Título do anúncio:',descricao)
                 print('URL do anúncio:',url)
                 mostra_dados_do_anuncio(url)
-                lista.append(url)
                 total += 1
                 carro = (f'Descricao do produto: {descricao}\n'
                          f'URL do produto: {url}\n'
