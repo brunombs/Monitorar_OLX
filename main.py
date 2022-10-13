@@ -1,13 +1,13 @@
 from bs4 import BeautifulSoup
 import requests
 import json
+#from keep_alive import keep_alive
 import telebot
 telegram_destino = '-123456789'  #coloque o ID do telegram no lugar dos zeros.
 CHAVE_API = "123456789:ABCdefGH12ABCDEF-x"  #coloque a chave API
 bot = telebot.TeleBot(CHAVE_API)
 bot.config['api_key'] = CHAVE_API
 from time import sleep
-lista = list()
 total = 0
 while True:
     def json_from_url(url):
@@ -18,8 +18,8 @@ while True:
         return json.loads(data_json)
 
 
-    url_produtos="https://ba.olx.com.br/grande-salvador/autos-e-pecas/carros-vans-e-utilitarios/renault/clio?rs=30"
-    # Pega a lista de produtos da área de eletrônicos
+    url_produtos="https://ba.olx.com.br/grande-salvador/autos-e-pecas/carros-vans-e-utilitarios/renault/clio?rs=30&sf=1"
+    # Pega a lista de produtos da página
     data = json_from_url(url_produtos)
     def mostra_dados_do_anuncio(url):
         data = json_from_url(url)
@@ -41,19 +41,31 @@ while True:
     for anuncio in adList:
         subject = anuncio.get('subject')
         if subject:
-            print('Aguardando novos anúncios!')
             descricao = anuncio.get('subject')
             url = anuncio.get('url')
-            if url in lista:
-                break
-            print('Descricao do produto:',descricao)
-            print('URL do produto=',url)
-            mostra_dados_do_anuncio(url)
-            lista.append(url)
-            total += 1
-            anuncio = (f'Descricao do produto: {descricao}\n'
-                     f'URL do produto: {url}\n'
-                     f'Total: {total}')
-            print(f'Total de anúncios enviados: {total}')
-            bot.send_message(telegram_destino, anuncio)
-            sleep(60)
+            precin = anuncio.get('price')
+            arq = open("dados_anuncios.txt")
+            linhas = arq.readlines()
+            if url + '\n' in linhas:
+                print(f'Título do anúncio: {descricao}')
+                print('ANÚNCIO JÁ VISTO! - Aguardando novos anúncios!')
+            else:
+                print('ANÚNCIO NOVO:')
+                with open('dados_anuncios.txt', 'a') as arquivo:
+                    arquivo.write(url + '\n')
+                print('Título do anúncio:',descricao)
+                print('URL do anúncio:',url)
+                mostra_dados_do_anuncio(url)
+                lista.append(url)
+                total += 1
+                carro = (f'Descricao do produto: {descricao}\n'
+                         f'URL do produto: {url}\n'
+                         f'Preço: {precin}\n'
+                         f'Total: {total}')
+                print(f'Total de anúncios enviados: {total}')
+                bot.send_message(telegram_destino, carro)
+            if len(linhas) > 1000:
+                with open('dados_anuncios.txt', 'w') as arquivo:
+                    arquivo.write(url + '\n')
+            sleep(2)
+#keep_alive()
